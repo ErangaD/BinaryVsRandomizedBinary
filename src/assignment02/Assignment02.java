@@ -87,24 +87,31 @@ public class Assignment02 {
     
     static int[] getSortedArray(int arraySize) {
         int[] array = new int[arraySize];
-        for(int i=0; i<arraySize; i++) {
-            array[i] = i;
+        for(int i=0; i < arraySize; i++) {
+            array[i] = i * 7;
         }
         return array;
     }
  
     static int[] getNumbersWithinArray(int limit, int size) {
         int[] array = new int[size];
-         for(int i=0; i<size; i++) {
-            array[i] = rand.nextInt(limit);
+        int maxValue = (limit-7)/7;
+        for(int i=0; i<size; i++) {
+            array[i] = rand.nextInt(maxValue) * 7;
         }
         return array;
     }
     
     static int[] getNumbersOutsideArray(int upperLimit, int size) {
         int[] array = new int[size];
-         for(int i=0; i<size; i++) {
-            array[i] = rand.nextInt(upperLimit) + upperLimit;
+        int random = rand.nextInt();
+        int i = 0;
+        while (i<size) {
+            if(random%7 != 0) {
+                array[i] = random;
+                i+=1;
+            }
+            random = rand.nextInt();
         }
         return array;
     }
@@ -123,8 +130,8 @@ public class Assignment02 {
             int n = arr.length;
             for (int times=0; times < numberOfTimes; times++) {
                
-                int[] valuesToSearchWithinArray = getNumbersWithinArray(N, 700);
-                int[] valuesToSearchOutsideArray = getNumbersOutsideArray(N, 300);
+                int[] valuesToSearchWithinArray = getNumbersWithinArray(N*7, 700);
+                int[] valuesToSearchOutsideArray = getNumbersOutsideArray(N*7, 300);
                 long startOutsideSearch = System.nanoTime();
                 for(int x: valuesToSearchOutsideArray) {
                     binarySearch(arr, 0, n-1, x);
@@ -164,11 +171,7 @@ public class Assignment02 {
             System.out.println("Average Randomized Binary Search time for N = " + N + "   is  " 
                                 + totalTimeInMiSecondRandomized/(1000 * numberOfTimes));
             
-            
-            
         }
-        
-        
     }
     
 }
